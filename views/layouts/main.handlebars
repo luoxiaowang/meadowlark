@@ -3,9 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Meadowlark Travel</title>
+    {{#if showTests}}
+        <link rel="stylesheet" href="/vendor/mocha.css">
+    {{/if}}
+    <script src="http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js"></script>
 </head>
 <body>
-    <header><img src="/img/logo.png" alt="Meadowlark Travel Logo"/></header>
-   {{{body}}}
+<header><img src="/img/logo.png" alt="Meadowlark Travel Logo"/></header>
+{{#if showTests}}
+    <div id="mocha"></div>
+    <script src="/vendor/mocha.js"></script>
+    <!--断言库-->
+    <script src="/vendor/chai.js"></script>
+    <script>
+        mocha.ui('tdd');
+        var assert = chai.assert;
+    </script>
+    <!--全局的测试类-->
+    <script src="/qa/tests-global.js"></script>
+    <!--按照模块加载测试类-->
+    {{#if pageTestScript}}
+        <script src="{{pageTestScript}}"></script>
+    {{/if}}
+    <script>mocha.run();</script>
+{{/if}}
+{{{body}}}
 </body>
 </html>

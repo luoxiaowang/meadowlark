@@ -18,13 +18,21 @@ app.set("port",process.env.PORT || 3000);
 //静态资源目录，放在路由前面
 app.use(express.static(__dirname + '/public'));
 
+//配置全局测试环境
+app.use(function(req,res,next){
+    res.locals.showTests = app.get("env") !== 'production' && req.query.test === '1';
+    next();
+});
 
 //添加路由
 app.get("/",function(req,res){
     res.render("home");
 });
 app.get("/about",function(req,res){
-    res.render("about",{fortune:fortune.getFortune()});
+    res.render("about",{
+        fortune:fortune.getFortune(),
+        pageTestScript: '/qa/tests-about.js'
+    });
 });
 
 //404    app.use->中间件  没有路由器匹配将会执行的处理器   路由和中间件的顺序很重要
