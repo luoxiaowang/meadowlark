@@ -34,6 +34,12 @@ app.get("/about",function(req,res){
         pageTestScript: '/qa/tests-about.js'
     });
 });
+app.get("/tours/hood-river",function(req,res){
+    res.render("tours/hood-river");
+});
+app.get("/tours/request-group-rate",function(req,res){
+    res.render("tours/request-group-rate");
+});
 
 //404    app.use->中间件  没有路由器匹配将会执行的处理器   路由和中间件的顺序很重要
 app.use(function(req,res){
@@ -50,4 +56,4 @@ app.use(function(err,req,res,next){
 
 app.listen(app.get("port"),function(){
     console.log("Express started on http://localhost:" + app.get("port") + '; press Ctrl+c to terminate.');
-})
+});
